@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom';
 import axios from 'axios';
 import Login from './Login';
 import Logout from './Logout';
+import Signup from './Signup';
 
 const App = () => {
   const [authenticated, setAuthenticated] = useState(false);
@@ -19,6 +20,7 @@ const App = () => {
       );
       if (response.data.authenticated) {
         setAuthenticated(true);
+        console.log('res.data.user :', response.data.user);
         setUser(response.data.user);
       } else {
         setAuthenticated(false);
@@ -46,53 +48,12 @@ const App = () => {
       {authenticated ? (
         <Logout onLogout={handleLogout} />
       ) : (
-        <Login onLogin={handleLogin} />
+        <>
+          <Signup onLogin={handleLogin} />
+          <Login onLogin={handleLogin} />
+        </>
       )}
     </div>
-    // <Router>
-    //   <Routes>
-    //     <Route>
-    //       <Route path="/" element={<Login onLogin={handleLogin} />} />
-    //       <Route path="/" element={<Logout onLogout={handleLogout} />} />
-    //     </Route>
-    //   </Routes>
-    // </Router>
-    // <Router>
-    //   <div>
-    //     <nav>
-    //       <ul>
-    //         <li>
-    //           <Link to="/">Home</Link>
-    //         </li>
-    //         {authenticated ? (
-    //           <li>
-    //             <Link to="/logout">Logout</Link>
-    //           </li>
-    //         ) : (
-    //           <li>
-    //             <Link to="/login">Login</Link>
-    //           </li>
-    //         )}
-    //       </ul>
-    //     </nav>
-
-    //     <Route
-    //       path="/"
-    //       exact
-    //       render={() => (
-    //         <div>
-    //           <h2>Home</h2>
-    //           {authenticated && <p>Welcome, {user.username}!</p>}
-    //         </div>
-    //       )}
-    //     />
-    //     <Route path="/login" render={() => <Login onLogin={handleLogin} />} />
-    //     <Route
-    //       path="/logout"
-    //       render={() => <Logout onLogout={handleLogout} />}
-    //     />
-    //   </div>
-    // </Router>
   );
 };
 
