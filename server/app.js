@@ -22,6 +22,9 @@ app.use(
   session({
     secret: 'your-secret-key2',
     resave: false,
+    cookie: {
+      maxAge: 5 * 1000,
+    },
   })
 );
 app.use(passport.initialize());
